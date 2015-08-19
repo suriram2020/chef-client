@@ -24,7 +24,7 @@
 class ::Chef::Recipe
   include ::Opscode::ChefClient::Helpers
 end
-
+ 
 # chef_node_name = Chef::Config[:node_name] == node['fqdn'] ? false : Chef::Config[:node_name]
 
 if node['chef_client']['log_file'].is_a? String and node['chef_client']['init_style'] != 'runit'
@@ -55,7 +55,6 @@ if log_path != 'STDOUT' #~FC023
     mode 00640
   end
 end
-
 chef_requires = []
 node['chef_client']['load_gems'].each do |gem_name, gem_info_hash|
   gem_info_hash ||= {}
@@ -70,8 +69,10 @@ end
 
 # We need to set these local variables because the methods aren't
 # available in the Chef::Resource scope
+ 
 d_owner = root_owner
-d_group = node['root_group']
+d_group = root_owner
+
 
 template "#{node["chef_client"]["conf_dir"]}/client.rb" do
   source 'client.rb.erb'

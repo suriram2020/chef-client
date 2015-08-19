@@ -23,6 +23,8 @@
 #
 # Users can add other configuration options through attributes in
 # their favorite way (role, 'site' cookbooks, etc).
+default['chef_client']['d_owner']='root'
+default['chef_client']['d_group']='root'
 default['chef_client']['config'] = {
   'chef_server_url' => Chef::Config[:chef_server_url],
   'validation_client_name' => Chef::Config[:validation_client_name],

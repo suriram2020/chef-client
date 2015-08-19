@@ -52,11 +52,8 @@ Attributes
 ----------
 The following attributes affect the behavior of the chef-client program when running as a service through one of the service recipes, or in cron with the cron recipe, or are used in the recipes for various settings that require flexibility.
 
-```will make pretty later - Suresh
-default['chef_client']['d_owner']='root'
-default['chef_client']['d_group']='root'
-```
-
+* `node['chef_client']['d_owner']` - Adding attribute for user who owns files created by cookbook (default if not specified: root)
+* `node['chef_client']['d_group']` -  Adding attribute for group who owns files created by cookbook (default if not specified: root) 
 * `node['chef_client']['interval']` - Sets `Chef::Config[:interval]`
   via command-line option for number of seconds between chef-client
   daemon runs. Default 1800.

@@ -42,19 +42,11 @@ module Opscode
           "#{node['chef_client']['d_owner']}"
         end
       end
-      def root_group
-        if ['windows'].include?(node['platform'])
-          wmi_property_from_query(:name, "select * from Win32_UserAccount where sid like 'S-1-5-21-%-500' and LocalAccount=True")
-        else
-          # require 'pry'; binding.pry 
-          "#{node['chef_client']['d_group']}"
-        end
-      end
 
+      
       def create_directories
         # root_owner is not in scope in the block below.
         d_owner = root_owner
-        d_group = root_group
         %w{run_path cache_path backup_path log_dir conf_dir}.each do |dir|
           # Do not redefine the resource if it exist
           begin
@@ -63,8 +55,8 @@ module Opscode
             directory node['chef_client'][dir] do
               recursive true
               mode 00755 if dir == 'log_dir'
-              owner d_owner
-              group d_group
+              owner d_owner 
+              group = node['root_group'].nil? ? 'root' : node['chef_client']['d_group'] 
             end
           end
         end

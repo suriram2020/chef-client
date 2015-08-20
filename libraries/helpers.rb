@@ -56,7 +56,7 @@ module Opscode
               recursive true
               mode 00755 if dir == 'log_dir'
               owner d_owner 
-              group = node['root_group'].nil? ? 'root' : node['chef_client']['d_group'] 
+              group = node['chef_client']['d_group'].nil? ? node['root_group'] : node['chef_client']['d_group'] 
             end
           end
         end
